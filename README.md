@@ -1,8 +1,10 @@
-# Cstar (Common Stock Assessment Routines)
+# Cstar Version 1.0 
+
+by Athol Whitten, November 2013
 
 ## The Project
 
-The Cstar project aims to collect, collate, and document common fisheries stock assessment modelling routines and to make them available as an open-source function library for C++ compatible applications, including ADMB (Auto-differentiation Model Builder). ADMB is a powerful software package for the development of nonlinear models and is freely available from the [ADMB-project website](http://www.admb-project.org). 
+The Cstar (Common Stock Assessment Routines) project aims to collect, collate, and document common fisheries stock assessment modelling routines and to make them available as an open-source function library for C++ compatible applications, including ADMB (Auto-differentiation Model Builder). ADMB is a powerful software package for the development of nonlinear models and is freely available from the [ADMB-project website](http://www.admb-project.org). 
 
 The library will simplify the development of fisheries stock assessment models and fish population models of all varieties. At first, development will be focussed on coding commonly used size-based functions for the assessment of hard-to-age species. For more information, please contact [Athol Whitten](mailto:whittena@uw.edu) at the School of Aquatic and Fishery Sciences, University of Washington.
 
