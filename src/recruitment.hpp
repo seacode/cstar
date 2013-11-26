@@ -1,6 +1,6 @@
 /* 
  * File:    Recruitment.hpp
- * Authors: Athol Whitten & Mathew Supernaw
+ * Authors: Athol Whitten
  *
  * Created on July 3, 2013, 2:30 PM
  */

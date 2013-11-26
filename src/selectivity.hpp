@@ -1,6 +1,6 @@
 /* 
  * File:    Selectivity.hpp
- * Authors: Athol Whitten & Mathew Supernaw
+ * Authors: Athol Whitten
  *
  * Created on July 3, 2013, 2:30 PM
  */
@@ -49,9 +49,10 @@ public:
     dvariable GetSd()  { return m_sd; }
 };
 
-// ------------------------------------------------------------------------------------ //
+// =========================================================================================================
 // Logistic function                                                                    //
-// ------------------------------------------------------------------------------------ //
+// =========================================================================================================
+
 dvar_vector Selex::logistic( const dvector& x,const dvariable& mu, const dvariable& sd )
 {
     return 1./(1.+mfexp(-(x-mu)/sd) );
@@ -63,9 +64,10 @@ dvector Selex::logistic( const dvector& x,const double& mu, const double& sd )
 }
 
 
-// ------------------------------------------------------------------------------------ //
+// =========================================================================================================
 // Exponential Logistic                                                                 //
-// ------------------------------------------------------------------------------------ //
+// =========================================================================================================
+
 dvar_vector Selex::eplogis( const dvar_vector& x, const dvariable& x1, 
                             const dvariable& x2, const dvariable& gamma )
 {
@@ -121,75 +123,9 @@ dvector Selex::eplogis( const dvector& x, const double& x1,
 }
 
 
-// ------------------------------------------------------------------------------------ //
-// Linear Interpolation using approx function from R libraries                          //
-// ------------------------------------------------------------------------------------ //
-static double approx1(const double& v, const dvector& x, const dvector& y)
-{
-    /* Approximate  y(v),  given (x,y)[i], i = 0,..,n-1 */
-    int i, j, ij;
-
-    //if(!n) return R_NaN;
-
-    i = x.indexmin();
-    j = x.indexmax() - 1;
-
-    /* handle out-of-domain points */
-    if(v < x[i]) return min(y);
-    if(v > x[j]) return max(y);
-
-    /* find the correct interval by bisection */
-    while(i < j - 1) 
-    { /* x[i] <= v <= x[j] */
-        ij = (i + j)/2; /* i+1 <= ij <= j-1 */
-        if(v < x[ij]) j = ij;
-        else i = ij;
-        /* still i < j */
-    }
-    /* provably have i == j-1 */
-
-    /* interpolation */
-    if(v == x[j]) return y[j];
-    if(v == x[i]) return y[i];
-    /* impossible: if(x[j] == x[i]) return y[i]; */
-
-    /* linear */
-    return y[i] + (y[j] - y[i]) * ((v - x[i])/(x[j] - x[i]));
-}/* approx1() */
-
-static dvariable approx1(const double& v, const dvector& x, const dvar_vector& y)
-{
-    /* Approximate  y(v),  given (x,y)[i], i = 0,..,n-1 */
-    int i, j, ij;
-
-    //if(!n) return R_NaN;
-
-    i = x.indexmin();
-    j = x.indexmax() - 1;
-
-    /* handle out-of-domain points */
-    if(v < x[i]) return min(y);
-    if(v > x[j]) return max(y);
-
-    /* find the correct interval by bisection */
-    while(i < j - 1) 
-    { /* x[i] <= v <= x[j] */
-        ij = (i + j)/2; /* i+1 <= ij <= j-1 */
-        if(v < x[ij]) j = ij;
-        else i = ij;
-        /* still i < j */
-    }
-    /* provably have i == j-1 */
-
-    /* interpolation */
-    if(v == x[j]) return y[j];
-    if(v == x[i]) return y[i];
-    /* impossible: if(x[j] == x[i]) return y[i]; */
-
-    /* linear */
-    return y[i] + (y[j] - y[i]) * ((v - x[i])/(x[j] - x[i]));
-}/* approx1() */
-
+// =========================================================================================================
+// Linear Interpolation using approx function from R libraries ('approx1 functions defined in generic.hpp')                         //
+// =========================================================================================================
 
 dvector Selex::linapprox(const dvector& x, const dvector& y, const dvector& xout)
 {
