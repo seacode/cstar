@@ -23,19 +23,8 @@ Interested persons can collaborate on this open-source project by contacting [At
 
 1) Assume all base types are double
 
-2) Use template functions
-        - make portable code
-        - never hard-code types from some library in you functions(i.e., variable, adnumber, etc).
+2) Use Google style guide: http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml
 
-3) Use Google style guide: http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml
-
-4) Always define namespaces inside cstar namespace.
-  namespace cstar {
-                	
-                	namespace selectivity{
-                	
-                  }
-  }
 
 ## Users ##
 
