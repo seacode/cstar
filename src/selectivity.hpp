@@ -23,7 +23,7 @@ private:
     dvariable m_sd;
         
 public:
-    ~Selex() {}                                   // destructor
+    ~Selex() {}           // destructor
         
     Selex( const dvariable& mu = 0., const dvariable& sd = 1.0) // default constructor
     {
@@ -41,7 +41,7 @@ public:
     dvar_vector eplogis(const dvar_vector& x, const dvariable& x1, const dvariable& x2, const dvariable& gamma);
     
     
-    // Linear Interoplation
+    // Linear Interpolation
     dvector     linapprox(const dvector& x, const dvector& y, const dvector& xout);
     dvar_vector linapprox(const dvector& x, const dvar_vector& y, const dvector& xout);
     
