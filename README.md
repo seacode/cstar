@@ -29,6 +29,6 @@ Instructions for use:
 
 * Download the Cstar repository and save it to your local machine.
 
-* Copy the `Cstar` folder to a directory that is in your PATH or can be referred to in your ADMB code, and use the `#include<cstar.h>` at the top of your TPL file.
+* Copy the `Cstar` folder to a directory that is in your PATH or can be referred to in your ADMB code, and use the `#include<cstar.h>` command at the top of your TPL file.
 
 * Cstar functions should now work from directly within your model code.
