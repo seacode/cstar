@@ -1,75 +1,57 @@
-/* 
- * File:    Selectivity.hpp
- * Authors: Athol Whitten
- *
- * Created on July 3, 2013, 2:30 PM
+/**
+*
+* \file selex.cpp
+* \brief Various selectivity functions 
+* \ingroup CSTAR
+*
+* \author Athol Whitten & Steve Martell
+* \date 01/20/2014
+*
  */
-
-
-#ifndef SELECTIVITY_HPP
-#define	SELECTIVITY_HPP
-
-
-/************************************
- * Common Stock Assessment Routines *
- ************************************/
 
 #include <admodel.h>
 
-// ------------------------------------------------------------------------------------ //
-class Selex{
-private:
-    dvariable m_mu;
-    dvariable m_sd;
-        
-public:
-    ~Selex() {}           // destructor
-        
-    Selex( const dvariable& mu = 0., const dvariable& sd = 1.0) // default constructor
-    {
-        m_mu = mu;
-        m_sd = sd;
-    }
-    
-    // Logistic function
-    dvector     logistic( const dvector& x,const double& mu, const double& sd );
-    dvar_vector logistic( const dvector& x,const dvariable& mu, const dvariable& sd );
-    
-    
-    // Exponential logistic
-    dvector     eplogis(const dvector& x, const double& x1, const double& x2, const double& gamma);
-    dvar_vector eplogis(const dvar_vector& x, const dvariable& x1, const dvariable& x2, const dvariable& gamma);
-    
-    
-    // Linear Interpolation
-    dvector     linapprox(const dvector& x, const dvector& y, const dvector& xout);
-    dvar_vector linapprox(const dvector& x, const dvar_vector& y, const dvector& xout);
-    
-    dvariable GetMu()  { return m_mu; }
-    dvariable GetSd()  { return m_sd; }
-};
-
 // =========================================================================================================
-// Logistic function                                                                    //
+// Logistic function (basic with Mean and SD)                                                                  //
 // =========================================================================================================
 
-dvar_vector Selex::logistic( const dvector& x,const dvariable& mu, const dvariable& sd )
+dvar_vector Selex::logistic( const dvector& x, const dvariable& mu, const dvariable& sd )
 {
     return 1./(1.+mfexp(-(x-mu)/sd) );
 }
 
-dvector Selex::logistic( const dvector& x,const double& mu, const double& sd )
+dvector Selex::logistic( const dvector& x, const double& mu, const double& sd )
 {
     return 1./(1.+mfexp(-(x-mu)/sd) );
 }
 
+// =========================================================================================================
+// Logistic function (parameterized by size at 5 and 95% selectivity)                                                                  //
+// =========================================================================================================
+    
+slope_par = -log(19)* selex_parms(ipnt +2);
+seltmp    = 1.0 / (1.0 + mfexp(slope_par) * (length-selex_parms(ipnt +1)));
+temp      = seltmp(nclass);
+seltmp    /= temp;
+
+// =========================================================================================================
+// Parameter-per-size-class function                                                                    //
+// =========================================================================================================
+
+dvar_vector Selex::parmpsc(const dvar_vector& x, const dvar_vector p)
+// above needs the vector of lengths  (seltmp(1,nclass), and the nclass number of parameters)
+
+for (int iclass=1; iclass<=nclass; iclass++)
+seltmp(iclass) = 1.0 / (1.0+mfexp(selex_parms(ipnt + iclass)));
+temp   = seltmp(nclass);
+seltmp /= temp;
 
 // =========================================================================================================
 // Exponential Logistic                                                                 //
 // =========================================================================================================
 
-dvar_vector Selex::eplogis( const dvar_vector& x, const dvariable& x1, 
-                            const dvariable& x2, const dvariable& gamma )
+dvar_vector Selex::eplogis(const dvar_vector& x, const dvariable& x1, 
+                            const dvariable& x2, const dvariable& gamma)
 {
     //exponential logistic based on Grant Thompson (1994) Paper, CJFAS.
     /*
@@ -96,8 +78,8 @@ dvar_vector Selex::eplogis( const dvar_vector& x, const dvariable& x1,
     return sx;
 }
 
-dvector Selex::eplogis( const dvector& x, const double& x1, 
-                        const double& x2, const double& gamma )
+dvector Selex::eplogis(const dvector& x, const double& x1, 
+                        const double& x2, const double& gamma)
 {
     //exponential logistic based on Grant Thompson (1994) Paper, CJFAS.
     /*

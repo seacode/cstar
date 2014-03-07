@@ -1,19 +1,15 @@
-# Cstar Version 1.0 
+# Cstar Version 1.1
 
-by Athol Whitten, November 2013
+by Athol Whitten, March 2014
 
 ## The Project
 
-The Cstar (Common Stock Assessment Routines) project aims to collect, collate, and document common fisheries stock assessment modelling routines and to make them available as an open-source function library for C++ compatible applications, including ADMB (Auto-differentiation Model Builder). ADMB is a powerful software package for the development of nonlinear models and is freely available from the [ADMB-project website](http://www.admb-project.org). 
+The Cstar (Common Stock Assessment Routines) project aims to collect, collate, and document common fisheries stock assessment modeling routines and to make them available as an open-source function library for ADMB (Auto-differentiation Model Builder). ADMB is a powerful software package for the development of nonlinear models and is freely available from the [ADMB-project website](http://www.admb-project.org). 
 
-The library will simplify the development of fisheries stock assessment models and fish population models of all varieties. At first, development will be focussed on coding commonly used size-based functions for the assessment of hard-to-age species. For more information, please contact [Athol Whitten](mailto:whittena@uw.edu) at the School of Aquatic and Fishery Sciences, University of Washington.
+The library should simplify the development of fisheries stock assessment models and fish population models of all varieties. Development will be focussed on commonly used size-based functions for the assessment of hard-to-age species. For more information, please contact [Athol Whitten](mailto:whittena@uw.edu) at the School of Aquatic and Fishery Sciences, University of Washington.
 
+The Cstar library can be used for building new stock-specific population and assessment models, or for simplifying existing ones. As an example, Cstar functions have been used, in part, to build a Generalized Model for Alaskan Crab Stocks (Gmacs). More information on Gmacs can be found at its [Github repository](https://github.com/awhitten/gmacs). The Gmacs source code includes calls to pre-existing functions from the Cstar library, eliminating the need for the main code to contain extra lines that define commonly used functions.
 
-## The Plan
-
-The Cstar library can be used for building new stock-specific population and assessment models, or for simplifying existing ones. To demonstrate this utility, an example stock assessment model previously developed to assess the Bristol Bay Red King Crab Fishery (BBRKC) is provided here in its original, and simplified forms (see `Examples` folder). The simplified form is a work in progress, but includes calls to pre-existing functions from the Cstar library, eliminating the need for the main assessment code to contain extra lines that define commonly used functions.
-
-Cstar functions can also be used to build generalized modeling packages, and will be used to build a Generalized Model for Alaskan Crab Stocks (Gmacs). More information on Gmacs can be found at its [Github repository](https://github.com/awhitten/gmacs).
 
 ## Collaborators ##
 
@@ -25,13 +21,14 @@ Interested persons can collaborate on this open-source project by contacting [At
 
 2) Use Google style guide: http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml
 
-
 ## Users ##
 
 The entire Cstar repository can be downloaded to a local machine by clicking the `Download Zip` button on the main repository page. Github users can clone the repository using their preferred method. 
 
 Instructions for use:
 
-	Download the Cstar repository and save it to your local machine in a directory of your choosing. 
+* Download the Cstar repository and save it to your local machine.
 
-	Copy the `Cstar` folder to a directory that is easily referred to in your C++ code. ADMB users may wish to copy the folder to the `Contrib` folder in their ADMB directory.
+* Copy the `Cstar` folder to a directory that is in your PATH or can be referred to in your ADMB code, and use the `#include<cstar.h>` at the top of your TPL file.
+
+* Cstar functions should now work from directly within your model code.
