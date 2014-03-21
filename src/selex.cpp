@@ -10,6 +10,7 @@
  */
 
 #include <admodel.h>
+#include "cstar.h"
 
 // =========================================================================================================
 // Logistic function (basic with Mean and SD)                                                                  //
@@ -24,27 +25,6 @@ dvector Selex::logistic( const dvector& x, const double& mu, const double& sd )
 {
     return 1./(1.+mfexp(-(x-mu)/sd) );
 }
-
-// =========================================================================================================
-// Logistic function (parameterized by size at 5 and 95% selectivity)                                                                  //
-// =========================================================================================================
-    
-slope_par = -log(19)* selex_parms(ipnt +2);
-seltmp    = 1.0 / (1.0 + mfexp(slope_par) * (length-selex_parms(ipnt +1)));
-temp      = seltmp(nclass);
-seltmp    /= temp;
-
-// =========================================================================================================
-// Parameter-per-size-class function                                                                    //
-// =========================================================================================================
-
-dvar_vector Selex::parmpsc(const dvar_vector& x, const dvar_vector p)
-// above needs the vector of lengths  (seltmp(1,nclass), and the nclass number of parameters)
-
-for (int iclass=1; iclass<=nclass; iclass++)
-seltmp(iclass) = 1.0 / (1.0+mfexp(selex_parms(ipnt + iclass)));
-temp   = seltmp(nclass);
-seltmp /= temp;
 
 // =========================================================================================================
 // Exponential Logistic                                                                 //
