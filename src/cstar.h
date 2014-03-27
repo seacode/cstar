@@ -24,6 +24,7 @@
 #include "dnbinom.cpp"
 #include "dmultifan.cpp"
 #include "approx.cpp"
+#include "selex.hpp"
 
 // =========================================================================================================
 // Generic functions: in 'generic.cpp'
@@ -83,15 +84,15 @@ dvariable approx(const double& v, const dvector& x, const dvar_vector& y);
 // Selectivity functions: in 'function_name.cpp'
 // =========================================================================================================
 
-class Selex{
+class Selexx{
 private:
     dvariable m_mu;
     dvariable m_sd;
         
 public:
-    ~Selex() {}  // Destructor
+    ~Selexx() {}  // Destructor
         
-    Selex( const dvariable& mu = 0., const dvariable& sd = 1.0) // default constructor
+    Selexx( const dvariable& mu = 0., const dvariable& sd = 1.0) // default constructor
     {
         m_mu = mu;
         m_sd = sd;
