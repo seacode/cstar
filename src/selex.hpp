@@ -65,7 +65,7 @@ namespace cstar {
 	};
 
 // =========================================================================================================
-// plogis: Base function for logistic-based selectivity functions
+// plogis: Base functions for logistic-based selectivity functions
 // =========================================================================================================
 
 	/**
@@ -78,9 +78,18 @@ namespace cstar {
 	 */
 
 	template<class T,class T2>
-	const T plogis(const T &x, const T2 &mean, const T2 & sd)
+	const T plogis(const T &x, const T2 &mean, const T2 &sd)
 	{
-		return T2(1.0)/(T2(1.0)+exp(-(x-mean)/sd));
+		return T2(1.0)/(T2(1.0)+mfexp(-(x-mean)/sd));
+	}
+
+	
+	template<class T, class T2>
+	const T plogis95(const T &x, const T2 &s50, const T2 &s95)
+	{
+		dvar_vector sel	= T2(1.0)/(T2(1.0)+(exp(-log(19)*((x-s50)/(s95-s50)))));
+    sel /= sel(sel.indexmax());	
+		return sel;
 	}
 
 // =========================================================================================================
@@ -130,6 +139,54 @@ namespace cstar {
 		}
 
 	};
+
+// =========================================================================================================
+// LogisticCurve95: Logistic-based selectivity function with options
+// =========================================================================================================
+
+  /**
+   * @brief Logistic curve parameterised with 5% and 95% selectivity
+   * @details Uses the logistic curve (plogis95) for a two parameter function
+   * 
+   * @tparam T data vector or dvar vector
+   * @tparam T2 double or dvariable for size at 5% and 95% selectivity
+   */
+
+  template<class T,class T2>
+  class LogisticCurve95: public Selex<T>
+  {
+  private:
+    T2 m_s50;
+    T2 m_s95;
+
+  public:
+    LogisticCurve95(T2 s50 = T2(1), T2 s95 = T2(1))
+    : m_s50(s50), m_s95(s95) {}
+
+    T2 GetS50()  const { return m_s50; }
+    T2 GetS95()  const { return m_s95; }
+
+    void SetS50(T2 s50) { this->m_s50 = s50; }
+    void SetS95(T2 s95) { this->m_s95 = s95; }
+
+    const T Selectivity(const T &x) const
+    {
+      return cstar::plogis95<T>(x, this->GetS50(), this->GetS95());
+    }
+
+    const T logSelectivity(const T &x) const
+    {
+      return log(cstar::plogis95<T>(x, this->GetS50(), this->GetS95()));
+    }
+
+    const T logSelexMeanOne(const T &x) const
+    {
+      T y = log(cstar::plogis95<T>(x, this->GetS50(), this->GetS95()));
+      y  -= log(mean(mfexp(y)));
+      return y;
+    }
+
+  };
 
 // =========================================================================================================
 // nonparametric: Base function for non-parametric selectivity cooefficients 
