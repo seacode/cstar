@@ -87,9 +87,9 @@ namespace cstar {
 	template<class T, class T2>
 	const T plogis95(const T &x, const T2 &s50, const T2 &s95)
 	{
-		dvar_vector sel	= T2(1.0)/(T2(1.0)+(exp(-log(19)*((x-s50)/(s95-s50)))));
-    sel /= sel(sel.indexmax());	
-		return sel;
+		dvar_vector selex	= T2(1.0)/(T2(1.0)+(exp(-log(19)*((x-s50)/(s95-s50)))));
+    selex /= selex(selex.indexmax());	
+		return selex;
 	}
 
 // =========================================================================================================
@@ -189,7 +189,7 @@ namespace cstar {
   };
 
 // =========================================================================================================
-// nonparametric: Base function for non-parametric selectivity cooefficients 
+// coefficients: Base function for non-parametric selectivity cooefficients 
 // =========================================================================================================
 
 	/**
@@ -202,7 +202,7 @@ namespace cstar {
 	 * @return Selectivity coefficients.
 	 */
 	template<class T>
-	const T nonparametric(const T &x, const T &sel_coeffs)
+	const T coefficients(const T &x, const T &sel_coeffs)
 	{
 		int x1 = x.indexmin();
 		int x2 = x.indexmax();
@@ -241,20 +241,87 @@ namespace cstar {
 
 		const T Selectivity(const T &x) const
 		{
-			// Call the age specific function
-			return cstar::nonparametric(x, this->GetSelCoeffs());
+			// Call the age/size specific function
+			return cstar::coefficients(x, this->GetSelCoeffs());
 		}
 
 		const T logSelectivity(const T &x) const
 		{
-			// Call the age specific function
-			return log(cstar::nonparametric(x, this->GetSelCoeffs()));
+			// Call the age/size specific function
+			return log(cstar::coefficients(x, this->GetSelCoeffs()));
 		}
 
 		const T logSelexMeanOne(const T &x) const
 		{
-			T y = log(cstar::nonparametric(x, this->GetSelCoeffs()));
+			T y = log(cstar::coefficients(x, this->GetSelCoeffs()));
 			y  -= log(mean(mfexp(y)));
+			return y;
+		}
+	};
+
+// =========================================================================================================
+// nonparametric: Base function for parametric selectivity option 
+// =========================================================================================================
+
+	/**
+	 * @brief Nonparametric selectivity function
+	 * @details Estimate one parameter per age/size class, and rescale to maximum of one.
+	 * 
+	 * @param x Independent variable (number of classes)
+	 * @param selparms Vector of selectivity parameters (initial values).
+	 * @return Selectivity values.
+	 */
+	template<class T>
+	const T nonparametric(const T &x, const T &selparms)
+	{
+	  int x2 = x.indexmax();
+	  dvar_vector selex(1,x2);
+		for (int i=1; i<=x2; i++)
+    	selex(i) = (1.0)/(1.0+mfexp(selparms(i)));
+	  dvariable temp = selex(x2);
+    selex /= temp;
+    return selex;
+	}
+
+// =========================================================================================================
+// ParameterPerClass: One age/size-specific selectivity parameter for each age/size class
+// =========================================================================================================	
+
+	/**
+	 * @brief Parametric selectivity function
+	 * @details One age or size-specific selectivity parameter for each age/size class.
+	 * 
+	 * @tparam T vector of parameters (initial values)
+	 */
+	template<class T>
+	class ParameterPerClass: public Selex<T>
+	{
+	private:
+		T m_selparms;
+
+	public:
+		ParameterPerClass(T selparms = T(1))
+		:m_selparms(selparms) {}
+
+		T GetSelparms() const { return m_selparms; }
+		void SetSelparms(T selparms) { this->m_selparms = selparms; }
+
+		const T Selectivity(const T &x) const
+		{
+			// Call the age/size specific function
+			return cstar::nonparametric(x, this->GetSelparms());
+		}
+
+		const T logSelectivity(const T &x) const
+		{
+			// Call the age/size specific function
+			return log(cstar::nonparametric(x, this->GetSelparms()));
+		}
+
+		const T logSelexMeanOne(const T &x) const
+		{
+			T y = log(cstar::nonparametric(x, this->GetSelparms()));
+			//y  -= log(mean(mfexp(y)));
 			return y;
 		}
 	};
