@@ -18,13 +18,14 @@
 #define CSTAR_H
 
 #include <admodel.h>
+#include "selex.hpp"
+
 // #include "generic.cpp"
 // #include "dpois.cpp"
 // #include "dgamma.cpp"
 // #include "dnbinom.cpp"
 // #include "dmultifan.cpp"
 // #include "approx.cpp"
-#include "selex.hpp"
 
 // =========================================================================================================
 // Generic functions: in 'generic.cpp'
