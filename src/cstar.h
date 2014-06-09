@@ -18,12 +18,12 @@
 #define CSTAR_H
 
 #include <admodel.h>
-#include "generic.cpp"
-#include "dpois.cpp"
-#include "dgamma.cpp"
-#include "dnbinom.cpp"
-#include "dmultifan.cpp"
-#include "approx.cpp"
+// #include "generic.cpp"
+// #include "dpois.cpp"
+// #include "dgamma.cpp"
+// #include "dnbinom.cpp"
+// #include "dmultifan.cpp"
+// #include "approx.cpp"
 #include "selex.hpp"
 
 // =========================================================================================================
@@ -75,24 +75,29 @@ dvariable dnbinom(const dvector& x, const dvar_vector& mu, const prevariable& k)
 // Other functions: in 'function_name.cpp'
 // =========================================================================================================
 
+
+
+// Put the entire contents of your header here...
+
 // Linearly interpolate given data points:
 double approx(const double& v, const dvector& x, const dvector& y);
 dvariable approx(const double& v, const dvector& x, const dvar_vector& y);
+
 
 
 // =========================================================================================================
 // Selectivity functions: in 'function_name.cpp'
 // =========================================================================================================
 
-class Selexx{
+class Selex{
 private:
     dvariable m_mu;
     dvariable m_sd;
         
 public:
-    ~Selexx() {}  // Destructor
+    ~Selex() {}  // Destructor
         
-    Selexx( const dvariable& mu = 0., const dvariable& sd = 1.0) // default constructor
+    Selex( const dvariable& mu = 0., const dvariable& sd = 1.0) // default constructor
     {
         m_mu = mu;
         m_sd = sd;

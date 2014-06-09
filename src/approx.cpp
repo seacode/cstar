@@ -13,8 +13,9 @@
 *
  */
 
+#ifndef APPROX_H
+#define APPROX_H
 #include "cstar.h"
-
 // =========================================================================================================
   
 double approx(const double& v, const dvector& x, const dvector& y)
@@ -79,6 +80,6 @@ dvariable approx(const double& v, const dvector& x, const dvar_vector& y)
     /* linear */
     return y[i] + (y[j] - y[i]) * ((v - x[i])/(x[j] - x[i]));
 }/* approx() */
-
+#endif
 // =========================================================================================================
   

@@ -43,8 +43,8 @@ double sd_length(const dvector& pobs, const dvector& len, const dvector& mlen)
 dvector norm_res(const dvector& pred, const dvector& obs, double m)
 {
   RETURN_ARRAYS_INCREMENT();
-  pred += 0.0001;
-  obs  += 0.0001;
+  //pred = pred + 0.0001;
+  //obs  = obs  + 0.0001;
   dvector nr(1,size_count(obs));
   nr = elem_div(obs-pred,sqrt(elem_prod(pred,(1.-pred))/m));
   RETURN_ARRAYS_DECREMENT();
@@ -69,8 +69,8 @@ double sd_norm_res(const dvar_vector& pred, const dvector& obs, double m)
 
 double eff_N(const dvector& pobs, const dvar_vector& phat)
 {
-  pobs += 0.0001;
-  phat += 0.0001;
+  // pobs += 0.0001;
+  // phat += 0.0001;
   dvar_vector rtmp = elem_div((pobs-phat),sqrt(elem_prod(phat,(1-phat))));
   double vtmp;
   vtmp = value(norm2(rtmp)/size_count(rtmp));

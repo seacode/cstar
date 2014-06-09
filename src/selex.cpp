@@ -121,4 +121,4 @@ dvar_vector Selex::linapprox(const dvector& x, const dvar_vector& y, const dvect
 }
 
 
-#endif	/* SELECTIVITY_HPP */
+//#endif	/* SELECTIVITY_HPP */
