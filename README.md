@@ -32,3 +32,19 @@ Instructions for use:
 * Copy the `Cstar` folder to a directory that is in your PATH or can be referred to in your ADMB code, and use the `#include<cstar.h>` pre processor command in the GLOBALS_SECTION of your TPL file.
 
 * Cstar functions should now work from directly within your model code.
+
+
+<!-- TODO LIST Created by Martell -->
+
+## ToDo List ##
+- [ ] Sort out namespace issues for cstar (3 letter namespace -> car)
+- [ ] Remove the #includes ".cpp" in header file cstar.h
+- [ ] Clean up bugs in approx.
+- [ ] Remove selex class in cstar.h, now using selex.hpp template.
+- [ ] Doxyfile for doxygen comments.
+- [ ] Work on template libraries for log density functions
+- [ ] Add alternative selectivity functions to selex.hpp
+- [ ] Create shared object library for cstar
+- [ ] Create makefile for building shared object library
+	- [ ] Unix makefile
+	- [ ] Windows makefile
