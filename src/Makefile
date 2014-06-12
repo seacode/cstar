@@ -1,4 +1,4 @@
-export ADMB_HOME=/Users/stevenmartell1/admb-trunk/build/dist
+#export ADMB_HOME=/Users/stevenmartell1/admb-trunk/build/dist
 
 SRCS = dgamma.cpp dmultifan.cpp dnbinom.cpp dpois.cpp \
        generic.cpp
