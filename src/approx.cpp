@@ -15,7 +15,7 @@
 
 #ifndef APPROX_H
 #define APPROX_H
-#include "cstar.h"
+#include "../include/cstar.h"
 // =========================================================================================================
   
 double approx(const double& v, const dvector& x, const dvector& y)

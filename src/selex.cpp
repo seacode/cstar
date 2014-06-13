@@ -10,7 +10,7 @@
  */
 
 #include <admodel.h>
-#include "cstar.h"
+#include "../include/cstar.h"
 
 // =========================================================================================================
 // Logistic function (basic with Mean and SD)                                                                  //
@@ -100,7 +100,7 @@ dvector Selex::linapprox(const dvector& x, const dvector& y, const dvector& xout
     for(k = xout.indexmin(); k <= xout.indexmax(); k++)
     {
         v       = xout(k);
-        yout(k) = approx1(v,x,y);
+        yout(k) = approx(v,x,y);
     }
     return yout;
 }
@@ -115,7 +115,7 @@ dvar_vector Selex::linapprox(const dvector& x, const dvar_vector& y, const dvect
     for(k = xout.indexmin(); k <= xout.indexmax(); k++)
     {
         v       = xout(k);
-        yout(k) = approx1(v,x,y);
+        yout(k) = approx(v,x,y);
     }
     return yout;
 }
