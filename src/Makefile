@@ -1,5 +1,6 @@
 OUTPUT:=libcstar.a
-export ADMB_HOME=/Users/stevenmartell1/admb-trunk/build/dist
+#export ADMB_HOME=/Users/stevenmartell1/admb-trunk/build/dist
+export ADMB_HOME=/Users/jim/admb/build/dist
 
        #approx.cpp selex.cpp?
 CXX:=clang++
@@ -14,12 +15,12 @@ CXXFLAGS:=-g -Wall -D__GNUDOS__ -Dlinux -DUSE_LAPLACE  \
 # Debug specific flags.
 DEBUG_CXXFLAGS:=-O0 -DSAFE_ALL
 DEBUG_LDFLAGS:= $(ADMB_HOME)/lib/libadmb.a               \
-	            $(ADMB_HOME)/contrib/lib/libcontrib.a    
+	            $(ADMB_HOME)/lib/libadmb-contrib.a    
 
 # Release specific flags.
 RELEASE_CXXFLAGS:=-O3 -DOPT_LIB
 RELEASE_LDFLAGS:= $(ADMB_HOME)/lib/libadmbo.a            \
-	              $(ADMB_HOME)/contrib/lib/libcontribo.a 
+	            $(ADMB_HOME)/lib/libadmb-contrib.a    
 
 
 # Global source files from current dir.
